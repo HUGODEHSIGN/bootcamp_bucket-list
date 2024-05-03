@@ -7,17 +7,23 @@ function Bucket({
   removeBucketItem,
   editBucketItem,
 }) {
-  const [edit, setEdit] = useState({
+  const editInitialValue = {
     id: null,
     value: '',
     eagerness: '',
-  });
+  };
+
+  const [edit, setEdit] = useState(editInitialValue);
 
   console.log(bucket);
 
   const submitUpdate = (value) => {
     // TODO: Write logic to call the editBucketItem prop with the supplied values
     // TODO: Set the key:value pairs in the `edit` object back to empty strings
+    console.log(value);
+    editBucketItem(edit.id, value);
+
+    setEdit(editInitialValue);
   };
 
   // If the user is attempting to edit an item, render the bucket form with the edit variable passed as a prop
@@ -28,6 +34,10 @@ function Bucket({
         onSubmit={submitUpdate}
       />
     );
+  }
+
+  function handleEnableUpdate(id, eagerness, text) {
+    setEdit({ id, value: text, eagerness });
   }
 
   return bucket.map(({ id, eagerness, text, complete }, index) => (
@@ -46,7 +56,7 @@ function Bucket({
       </div>
       <div className="icons">
         {/* TODO: Add an onClick event update the `edit` object with the `id`, `value`, and `eagerness` properties */}
-        <p onClick={() => console.log('clicked edit button')}> ✏️</p>
+        <p onClick={() => handleEnableUpdate(id, eagerness, text)}> ✏️</p>
         {/* TODO: Add an onClick event that will invoke the removeBucketItem method passing in the `item.id` */}
         <p onClick={() => removeBucketItem(id)}> 🗑️</p>
       </div>

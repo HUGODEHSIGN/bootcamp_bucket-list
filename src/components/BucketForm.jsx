@@ -9,7 +9,6 @@ function BucketForm(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!eagerness) {
       eagerness = 'low';
     }
